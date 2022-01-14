@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Barkat Sevings</string>
+    <string name="login">Login</string>
+    <string name="your_total_savings">Your total savings:</string>
+    <string name="other_details">Other Details</string>
+    <string name="saving_details">Saving Details</string>
+    <string name="total_savings_of_group">Total Savings of Group</string>
+    <string name="rupee">\u20b9</string>
+</resources>
