@@ -1,9 +1,27 @@
 <resources>
     <string name="app_name">Barkat Sevings</string>
     <string name="login">Login</string>
-    <string name="your_total_savings">Your total savings:</string>
+    <string name="your_total_savings">Your total savings :</string>
     <string name="other_details">Other Details</string>
-    <string name="saving_details">Saving Details</string>
-    <string name="total_savings_of_group">Total Savings of Group</string>
-    <string name="rupee">\u20b9</string>
+    <string name="saving_details">Your Savings</string>
+    <string name="total_savings_of_group">Savings of Group :</string>
+    <string name="rupee_symbol">\u20b9</string>
+    <string name="you_don_t_have_started_saving_yet">You haven\'t started saving yet!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_saving_amount">Enter saving amount</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="enter_your_password">Enter your password</string>
+
+    <string-array name="planets_array">
+        <item>Select User</item>
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
 </resources>

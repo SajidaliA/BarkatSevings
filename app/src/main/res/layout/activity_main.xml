@@ -1,137 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green5"
-    android:padding="@dimen/_16sdp"
+    android:background="@color/color_main"
     tools:context="com.barkat.barkatsevings.view.MainActivity">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/appCompatTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_50sdp"
-        android:fontFamily="@font/nunito_sans_semibold"
-        android:text="@string/your_total_savings"
+    <FrameLayout
+        android:id="@+id/container_main"
+        android:elevation="@dimen/_1sdp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/appCompatTextView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_mono_bold"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_30sdp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView"
-        tools:text="\u20b93500" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/appCompatImageView3"
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_80sdp"
-        android:elevation="@dimen/_3sdp"
-        android:src="@drawable/ic_user_placeholder"
-        app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/appCompatTextView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito_sans_semibold"
-        android:text="@string/other_details"
-        android:textColor="@color/black"
-        android:layout_marginTop="@dimen/_12sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatImageView3" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_1sdp"
-        android:layout_marginVertical="@dimen/_10sdp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="@dimen/_10sdp"
-        app:contentPadding="@dimen/_12sdp"
+        android:padding="@dimen/_16sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView3">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:alpha="0.4"
+            android:fontFamily="@font/nunito_sans_semibold"
+            android:text="@string/your_total_savings"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/appCompatImageView"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:src="@drawable/ic_saving"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/green" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_mono_bold"
+            android:text="\u20b913000"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_30sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_12sdp"
-                android:fontFamily="@font/nunito_sans_bold"
-                android:text="@string/saving_details"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/appCompatImageView"
-                app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_user"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:elevation="@dimen/_3sdp"
+            android:foreground="@drawable/round_ripple"
+            android:src="@drawable/ic_user_placeholder"
+            app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/appCompatImageView2"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:src="@drawable/ic_total_savings"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_user"
+            app:tint="@color/white" />
 
-    <androidx.cardview.widget.CardView
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:text="@string/total_savings_of_group"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView2"
+            app:layout_constraintStart_toEndOf="@+id/appCompatImageView2"
+            app:layout_constraintTop_toTopOf="@+id/appCompatImageView2" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_mono_bold"
+            android:text="\u20b920000"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/appCompatTextView4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_1sdp"
-        android:layout_marginVertical="@dimen/_16sdp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="@dimen/_10sdp"
-        app:contentPadding="@dimen/_12sdp"
+        android:layout_height="0dp"
+        android:background="@drawable/shape_bg_blue_top_corner_20"
+        android:paddingTop="@dimen/_16sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView">
+        app:layout_constraintTop_toBottomOf="@id/cl_top">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/appCompatImageView"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:src="@drawable/ic_saving"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/color_main" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:text="@string/saving_details"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView"
+            app:layout_constraintStart_toEndOf="@+id/appCompatImageView"
+            app:layout_constraintTop_toTopOf="@+id/appCompatImageView" />
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/color_main_10"
+            app:layout_constraintBottom_toTopOf="@id/rv_savings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/appCompatImageView2"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:src="@drawable/ic_total_savings"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/green" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_savings"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
+            android:background="@color/white"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingVertical="@dimen/_8sdp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/btn_add_new_saving"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appCompatImageView"
+            tools:listitem="@layout/item_saving" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_12sdp"
-                android:fontFamily="@font/nunito_sans_bold"
-                android:text="@string/total_savings_of_group"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/appCompatImageView2"
-                app:layout_constraintTop_toTopOf="parent" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/color_main_10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_savings" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_no_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/no_data"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/rv_savings"
+            app:layout_constraintStart_toStartOf="@id/rv_savings"
+            app:layout_constraintTop_toTopOf="@id/rv_savings" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_sans_semibold"
+            android:text="@string/you_don_t_have_started_saving_yet"
+            android:textColor="@color/color_main"
+            android:textSize="@dimen/_16sdp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_no_data" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_add_new_saving"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:background="@drawable/shape_bg_green_20"
+            android:text="Add new Saving"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

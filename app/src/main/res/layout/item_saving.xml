@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="data"
+            type="com.barkat.barkatsevings.data.Saving" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:cardElevation="@dimen/_3sdp"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_8sdp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{data.month}"
+                    tools:text="January"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/color_main"
+                    android:textSize="@dimen/_14sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:fontFamily="@font/nunito_sans_semibold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito_sans"
+                    android:text="@{data.dateOfPayment}"
+                    android:textColor="@color/black"
+                    android:alpha="0.4"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_month"
+                    tools:text="02/03/2022" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_mono_bold"
+                    android:text="@{data.amount}"
+                    android:textColor="@color/color_main"
+                    android:textSize="@dimen/_14sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/txt_month"
+                    tools:text="\u20b91000" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{data.status}"
+                    android:textColor="@color/black"
+                    android:alpha="0.6"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/txt_date"
+                    tools:text="Panding" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

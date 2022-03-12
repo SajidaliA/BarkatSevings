@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "31311499289",
+    "project_id": "barkat-savings",
+    "storage_bucket": "barkat-savings.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31311499289:android:cbe5e668f9b8ce3c03da88",
+        "android_client_info": {
+          "package_name": "com.example.barkatsevings"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "31311499289-ul2cjk2081akdp9hl1rfvcp1dka102dc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcN1NoQuBqMLD1np7doXhfIdELxTXLnC0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "31311499289-ul2cjk2081akdp9hl1rfvcp1dka102dc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
