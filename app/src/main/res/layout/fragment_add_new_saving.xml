@@ -1,9 +1,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:clickable="true"
     android:focusable="true"
@@ -14,38 +14,50 @@
         android:id="@+id/txt_add_new_saving"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add new Saving"
-        android:textSize="@dimen/_16sdp"
-        android:textColor="@color/color_main"
+        android:layout_marginTop="@dimen/_30sdp"
         android:fontFamily="@font/nunito_sans_semibold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="Add new Saving"
+        android:textColor="@color/color_main"
+        android:textSize="@dimen/_16sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/_30sdp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/spinner_user"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
         android:layout_marginTop="@dimen/_30sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/shape_border_green_20"
-        app:layout_constraintTop_toBottomOf="@id/txt_add_new_saving"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_add_new_saving" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edt_amount"
-        android:inputType="number"
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinner_month"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
         android:layout_marginTop="@dimen/_16sdp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/shape_border_green_20"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinner_user" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_amount"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:background="@drawable/shape_border_green_20"
         android:hint="@string/enter_saving_amount"
+        android:inputType="number"
+        android:fontFamily="@font/nunito_sans"
         android:paddingHorizontal="@dimen/_12sdp"
         android:paddingVertical="@dimen/_8sdp"
-        android:background="@drawable/shape_border_green_20"
-        app:layout_constraintTop_toBottomOf="@id/spinner_user"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinner_month" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_add"
@@ -58,4 +70,70 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_2021"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:fontFamily="@font/nunito_sans_semibold"
+        android:background="@drawable/shape_border_blue_selected_20"
+        android:padding="@dimen/_8sdp"
+        android:text="@string/_2021"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintEnd_toStartOf="@id/txt_2022"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt_amount" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_2022"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:gravity="center"
+        android:fontFamily="@font/nunito_sans_semibold"
+        android:background="@drawable/shape_border_green_20"
+        android:padding="@dimen/_8sdp"
+        android:text="@string/_2022"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintEnd_toStartOf="@id/txt_2023"
+        app:layout_constraintStart_toEndOf="@id/txt_2021"
+        app:layout_constraintTop_toBottomOf="@id/edt_amount" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_2023"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:gravity="center"
+        android:fontFamily="@font/nunito_sans_semibold"
+        android:background="@drawable/shape_border_green_20"
+        android:padding="@dimen/_8sdp"
+        android:text="@string/_2023"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/txt_2022"
+        app:layout_constraintTop_toBottomOf="@id/edt_amount" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:fontFamily="@font/nunito_sans_semibold"
+        android:background="@drawable/shape_border_blue_selected_20"
+        android:padding="@dimen/_8sdp"
+        android:text="02/02/2022"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_2021" />
 </androidx.constraintlayout.widget.ConstraintLayout>

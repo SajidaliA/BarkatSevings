@@ -6,22 +6,20 @@
     <string name="saving_details">Your Savings</string>
     <string name="total_savings_of_group">Savings of Group :</string>
     <string name="rupee_symbol">\u20b9</string>
+    <string name="savings">\u20b9%s</string>
     <string name="you_don_t_have_started_saving_yet">You haven\'t started saving yet!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enter_saving_amount">Enter saving amount</string>
     <string name="enter_your_email">Enter your email</string>
     <string name="enter_your_password">Enter your password</string>
-
-    <string-array name="planets_array">
-        <item>Select User</item>
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
-    </string-array>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="enter_your_mobile_number">Enter your Mobile number</string>
+    <string name="complete_your_details">Complete your details</string>
+    <string name="please_add_your_name_and_mobile_number_form_profile">Please add your name and mobile number from profile</string>
+    <string name="add">Add</string>
+    <string name="please_add_your_mobile_number_form_profile">Please add your mobile number from profile</string>
+    <string name="_2021">2021</string>
+    <string name="_2023">2023</string>
+    <string name="_2022">2022</string>
 </resources>

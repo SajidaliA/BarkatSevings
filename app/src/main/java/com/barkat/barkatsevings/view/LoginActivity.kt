@@ -1,14 +1,12 @@
 package com.barkat.barkatsevings.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
-import androidx.core.content.ContextCompat
 import com.barkat.barkatsevings.helper.FirebaseHelper
 import com.barkat.barkatsevings.utils.PreferenceProvider
-import com.example.barkatsevings.R
+import com.barkat.barkatsevings.utils.USER_ID
 import com.example.barkatsevings.databinding.ActivityLoginBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,8 +25,11 @@ class LoginActivity : BaseActivity() {
         mBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         firebaseHelper = FirebaseHelper(mPreferenceProvider)
-        if (firebaseHelper.checkUserLoggedIn() != null){
-            startActivity(Intent(this, MainActivity::class.java))
+        firebaseHelper.checkUserLoggedIn()?.apply {
+            mPreferenceProvider.setValue(USER_ID,
+                email.toString().substring(0, email.toString().indexOf("@"))
+            )
+            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
             finish()
         }
         setClickListeners()

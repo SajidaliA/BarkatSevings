@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.barkat.barkatsevings.data.Saving
+import com.example.barkatsevings.R
 import com.example.barkatsevings.databinding.ItemSavingBinding
 
 /**
@@ -28,7 +29,9 @@ class SavingsAdapter : ListAdapter<Saving, SavingsAdapter.TestViewHolder>(MyDiff
     }
 
     override fun onBindViewHolder(holder: TestViewHolder, position: Int) {
-        holder.binding.data = getItem(position)
+        val saving = getItem(position)
+        saving.amount = holder.binding.root.context.getString(R.string.savings, saving.amount)
+        holder.binding.data = saving
     }
 
 
