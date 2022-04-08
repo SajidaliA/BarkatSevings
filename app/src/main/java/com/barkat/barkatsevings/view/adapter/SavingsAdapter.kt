@@ -30,7 +30,9 @@ class SavingsAdapter : ListAdapter<Saving, SavingsAdapter.TestViewHolder>(MyDiff
 
     override fun onBindViewHolder(holder: TestViewHolder, position: Int) {
         val saving = getItem(position)
-        saving.amount = holder.binding.root.context.getString(R.string.savings, saving.amount)
+        if (saving.amount?.contains(holder.binding.root.context.getString(R.string.rupee_symbol)) == false){
+            saving.amount = holder.binding.root.context.getString(R.string.savings, saving.amount)
+        }
         holder.binding.data = saving
     }
 

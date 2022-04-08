@@ -4,9 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.barkat.barkatsevings.helper.FirebaseHelper
 import com.barkat.barkatsevings.utils.PreferenceProvider
 import com.barkat.barkatsevings.utils.USER_ID
+import com.barkat.barkatsevings.utils.hide
+import com.barkat.barkatsevings.utils.show
 import com.example.barkatsevings.databinding.ActivityLoginBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,13 +50,20 @@ class LoginActivity : BaseActivity() {
                     Snackbar.make(mBinding.root, "Please enter password", Snackbar.LENGTH_SHORT).show()
                 }
                 else -> {
+                    mBinding.btnLogin.hide()
+                    mBinding.progressBar.show()
                     firebaseHelper.login(email, password).observe(this) {
                         if (it != null) {
+                            mPreferenceProvider.setValue(USER_ID,
+                                email.substring(0, email.indexOf("@"))
+                            )
                             Toast.makeText(this, "Login Success", LENGTH_SHORT).show()
                             startActivity(Intent(this, MainActivity::class.java))
                             finish()
                         }else{
                             Toast.makeText(this, "Invalid username or password", LENGTH_SHORT).show()
+                            mBinding.btnLogin.show()
+                            mBinding.progressBar.hide()
                         }
                     }
                 }

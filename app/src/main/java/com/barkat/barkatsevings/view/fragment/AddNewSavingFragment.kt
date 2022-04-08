@@ -23,6 +23,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddNewSavingFragment : Fragment() {
+
     @Inject
     lateinit var mPreferenceProvider: PreferenceProvider
     private lateinit var mBinding: FragmentAddNewSavingBinding
@@ -152,7 +153,7 @@ class AddNewSavingFragment : Fragment() {
                             "Done",
                             edtAmount.text.toString()
                         )
-                        firebaseHelper.addSaving(saving)
+                        context?.let { it1 -> firebaseHelper.addSaving(selectedUserId, saving, it1) }
                         activity?.hideKeyboard()
                         activity?.supportFragmentManager?.popBackStack()
                     }

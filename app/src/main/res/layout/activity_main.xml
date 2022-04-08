@@ -28,16 +28,29 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:fontFamily="@font/nunito_sans_bold"
+            tools:text="Sajid Ali Suthar"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/appCompatTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_30sdp"
             android:alpha="0.4"
+            android:layout_marginTop="@dimen/_16sdp"
             android:fontFamily="@font/nunito_sans_semibold"
             android:text="@string/your_total_savings"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_user_name" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_user_total_saving"
@@ -171,6 +184,7 @@
             tools:listitem="@layout/item_saving" />
 
         <View
+            android:id="@+id/line_bottom"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1sdp"
             android:background="@color/color_main_10"
@@ -178,28 +192,44 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rv_savings" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/img_no_data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/no_data"
-            android:visibility="gone"
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="@id/rv_savings"
             app:layout_constraintStart_toStartOf="@id/rv_savings"
-            app:layout_constraintTop_toTopOf="@id/rv_savings" />
+            app:layout_constraintTop_toTopOf="@id/rv_savings"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txt_no_data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nunito_sans_semibold"
-            android:text="@string/you_don_t_have_started_saving_yet"
-            android:textColor="@color/color_main"
-            android:textSize="@dimen/_16sdp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/img_no_data" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_no_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/no_data"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_no_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito_sans_semibold"
+                    android:text="@string/you_don_t_have_started_saving_yet"
+                    android:textColor="@color/color_main"
+                    android:textSize="@dimen/_16sdp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/img_no_data" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_add_new_saving"

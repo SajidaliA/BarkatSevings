@@ -22,4 +22,5 @@
     <string name="_2021">2021</string>
     <string name="_2023">2023</string>
     <string name="_2022">2022</string>
+    <string name="logout">Logout</string>
 </resources>

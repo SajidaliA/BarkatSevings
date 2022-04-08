@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.barkatsevings">
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name="com.barkat.barkatsevings.app.MyApplication"
@@ -13,7 +15,8 @@
         android:fullBackupContent="true">
         <activity
             android:name="com.barkat.barkatsevings.view.LoginActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +25,8 @@
         </activity>
         <activity
             android:name="com.barkat.barkatsevings.view.MainActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
 
         </activity>
 

@@ -20,10 +20,12 @@ class MainViewModel @Inject constructor(
     fun getSavings() = mainRepository.getUserSavings()
     fun getAllSavings() = mainRepository.getAllSavings()
 
-    fun getUserTotalSavings(savingList : ArrayList<Saving>) : String {
+    fun getUserTotalSavings(savingList : ArrayList<Saving>?) : String {
         var totalSavings = 0
-        savingList.map {
-            totalSavings += it.amount?.toInt()!!
+        savingList?.map { saving ->
+            if(saving.amount != null){
+                totalSavings += saving.amount?.toInt()!!
+            }
         }
         return totalSavings.toString()
     }

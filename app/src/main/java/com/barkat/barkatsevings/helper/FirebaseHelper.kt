@@ -1,7 +1,9 @@
 package com.barkat.barkatsevings.helper
 
+import android.content.Context
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.barkat.barkatsevings.utils.USER_ID
@@ -14,15 +16,22 @@ import com.barkat.barkatsevings.utils.SAVING_BUCKET
 import com.barkat.barkatsevings.utils.USER_BUCKET
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.scopes.ActivityScoped
 
 /**
  * Created by Sajid Ali Suthar.
  */
-class FirebaseHelper @Inject constructor(private val mPreferenceManager: PreferenceProvider) {
+
+class FirebaseHelper @Inject constructor(
+    private val mPreferenceManager: PreferenceProvider
+) {
     private val TAG = "FIREBASE_HELPER"
     private var storage: FirebaseStorage? = null
     private var storageReference: StorageReference? = null
@@ -31,20 +40,20 @@ class FirebaseHelper @Inject constructor(private val mPreferenceManager: Prefere
     private var userReference: DatabaseReference? = null
     private lateinit var auth: FirebaseAuth
 
-    fun checkUserLoggedIn() : FirebaseUser? {
+    fun checkUserLoggedIn(): FirebaseUser? {
         auth = FirebaseAuth.getInstance()
         return auth.currentUser
     }
 
-    fun login(email: String, password: String) : LiveData<FirebaseUser>{
+    fun login(email: String, password: String): LiveData<FirebaseUser> {
         val firebaseUserLiveData = MutableLiveData<FirebaseUser>()
         auth = FirebaseAuth.getInstance()
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
-                if (task.isSuccessful){
+                if (task.isSuccessful) {
                     Log.d(TAG, "signInWithEmail:success")
                     firebaseUserLiveData.postValue(auth.currentUser)
-                }else{
+                } else {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                     firebaseUserLiveData.postValue(null)
                 }
@@ -72,17 +81,16 @@ class FirebaseHelper @Inject constructor(private val mPreferenceManager: Prefere
             }
     }
 
-    fun addSaving(saving: Saving) {
+    fun addSaving(selectedUserId: String?, saving: Saving, context: Context) {
         firebaseDatabase = FirebaseDatabase.getInstance()
         userReference = firebaseDatabase?.getReference(SAVING_BUCKET)
-        val userId = mPreferenceManager.getValue(USER_ID, "")
-        userId?.let { it ->
-            userReference?.child(it)?.child(saving.month.toString())
+        selectedUserId?.let { it ->
+            userReference?.child(it)?.child(saving.month.toString() + saving.year.toString())
                 ?.setValue(saving)?.addOnSuccessListener {
-                    Log.e(TAG, "Saving Saved")
-            }?.addOnFailureListener {
-                Log.e(TAG, it.message.toString())
-            }
+                    Toast.makeText(context, "Saving added", Toast.LENGTH_SHORT).show()
+                }?.addOnFailureListener {
+                    Log.e(TAG, it.message.toString())
+                }
         }
     }
 
@@ -105,7 +113,8 @@ class FirebaseHelper @Inject constructor(private val mPreferenceManager: Prefere
         val savingList: ArrayList<Saving> = ArrayList()
         firebaseDatabase = FirebaseDatabase.getInstance()
         userReference = firebaseDatabase?.getReference(SAVING_BUCKET)
-        val userIdReference = userReference?.child(mPreferenceManager.getValue(USER_ID, "").toString())
+        val userIdReference =
+            userReference?.child(mPreferenceManager.getValue(USER_ID, "").toString())
 
         userIdReference?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -117,7 +126,9 @@ class FirebaseHelper @Inject constructor(private val mPreferenceManager: Prefere
                             savingList.add(it)
                         }
                     }
-                    savingsLiveData.postValue(savingList)
+                    if (savingList.isNotEmpty()) {
+                        savingsLiveData.postValue(savingList)
+                    }
                 } catch (e: Exception) {
                     Log.e(TAG, e.message.toString())
                     e.printStackTrace()
@@ -142,13 +153,15 @@ class FirebaseHelper @Inject constructor(private val mPreferenceManager: Prefere
                     allSavingList.clear()
                     allSavingsLiveData.value?.clear()
                     for (user in snapshot.children) {
-                        for (month in user.children){
+                        for (month in user.children) {
                             month.getValue(Saving::class.java)?.let {
                                 allSavingList.add(it)
                             }
                         }
                     }
-                    allSavingsLiveData.postValue(allSavingList)
+                    if (allSavingList.isNotEmpty()) {
+                        allSavingsLiveData.postValue(allSavingList)
+                    }
                 } catch (e: Exception) {
                     Log.e(TAG, e.message.toString())
                     e.printStackTrace()
@@ -174,8 +187,8 @@ class FirebaseHelper @Inject constructor(private val mPreferenceManager: Prefere
                     allUserListLiveData.value?.clear()
                     for (user in snapshot.children) {
                         user.getValue(User::class.java)?.let {
-                                allUserList.add(it)
-                            }
+                            allUserList.add(it)
+                        }
                     }
                     allUserListLiveData.postValue(allUserList)
                 } catch (e: Exception) {
@@ -194,18 +207,18 @@ class FirebaseHelper @Inject constructor(private val mPreferenceManager: Prefere
     fun deleteProfileImage(saving: Saving) {
         userReference?.child(mPreferenceManager.getValue(USER_ID, "").toString())
             ?.child(saving.id.toString())?.removeValue()?.addOnCompleteListener {
-            storageReference?.child("profileImages/" + saving.id)?.delete()
-                ?.addOnSuccessListener {
-                    Log.e("TAG", "Profile Image deleted")
-                }?.addOnFailureListener {
-                Log.e("TAG", "Profile image delete FAILED")
+                storageReference?.child("profileImages/" + saving.id)?.delete()
+                    ?.addOnSuccessListener {
+                        Log.e("TAG", "Profile Image deleted")
+                    }?.addOnFailureListener {
+                        Log.e("TAG", "Profile image delete FAILED")
+                    }
+            }?.addOnFailureListener {
+                Log.e("TAG", "Recording delete FAILED")
             }
-        }?.addOnFailureListener {
-            Log.e("TAG", "Recording delete FAILED")
-        }
     }
 
-    fun updateNameAndMobileNumber(name: String, photoUrl: String) {
+    fun updateNameAndMobileNumber(name: String, photoUrl: String, context: Context) {
         auth = FirebaseAuth.getInstance()
         val profileUpdates = userProfileChangeRequest {
             displayName = name
@@ -214,8 +227,13 @@ class FirebaseHelper @Inject constructor(private val mPreferenceManager: Prefere
         auth.currentUser!!.updateProfile(profileUpdates)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    Toast.makeText(context, "Data updated", Toast.LENGTH_SHORT).show()
                     Log.d(TAG, "User profile updated.")
                 }
             }
+    }
+
+    fun logout() {
+        Firebase.auth.signOut()
     }
 }
