@@ -22,6 +22,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
+    private var userName: String? = ""
+    private var userEmail: String? = ""
+
     @Inject
     lateinit var mPreferenceProvider: PreferenceProvider
     private lateinit var mBinding: FragmentHomeBinding
@@ -75,17 +78,8 @@ class HomeFragment : Fragment() {
                 mBinding.lineBottom.hide()
             }
             mBinding.txtUserName.text = displayName
-            viewModel.updateUserData(
-                User(
-                    mPreferenceProvider.getValue(USER_ID, ""),
-                    email,
-                    "",
-                    displayName,
-                    "0",
-                    "",
-                    ""
-                )
-            )
+            userName = displayName
+            userEmail = email
         }
     }
 
@@ -97,6 +91,7 @@ class HomeFragment : Fragment() {
                 mBinding.txtUserTotalSaving.text =
                     getString(R.string.savings, viewModel.getUserTotalSavings(it))
                 setView()
+                updateUserData(viewModel.getUserTotalSavings(it))
                 mBinding.imgNoData.hide()
                 mBinding.txtNoData.hide()
                 mBinding.scrollView.hide()
@@ -117,6 +112,20 @@ class HomeFragment : Fragment() {
                 mBinding.progressBar.hide()
             }
         }
+    }
+
+    private fun updateUserData(totalSavings: String) {
+        viewModel.updateUserData(
+            User(
+                mPreferenceProvider.getValue(USER_ID, ""),
+                userEmail,
+                "",
+                userName,
+                totalSavings,
+                "",
+                ""
+            )
+        )
     }
 
     private fun setClickListeners() {
