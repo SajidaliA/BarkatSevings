@@ -1,6 +1,9 @@
 package com.barkat.barkatsevings.view.activity
 
 import android.os.Bundle
+import com.barkat.barkatsevings.utils.HOME_TAB
+import com.barkat.barkatsevings.utils.MEMBERS_TAB
+import com.barkat.barkatsevings.utils.PROFILE_TAB
 import com.barkat.barkatsevings.utils.addReplaceFragment
 import com.barkat.barkatsevings.view.fragment.HomeFragment
 import com.barkat.barkatsevings.view.fragment.MembersFragment
@@ -13,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     private lateinit var mBinding: ActivityMainBottomNavBinding
+    private var currentFragment: String = HOME_TAB
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,21 +28,27 @@ class MainActivity : BaseActivity() {
         mBinding.navView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.navigation_home -> {
-                   loadHomeFragment()
+                    if (currentFragment != HOME_TAB) loadHomeFragment()
                     true
                 }
                 R.id.navigation_members -> {
-                    addReplaceFragment(
-                        R.id.container_bottom_nav, MembersFragment(), false,
-                        addToBackStack = true, false
-                    )
+                    if (currentFragment != MEMBERS_TAB){
+                        addReplaceFragment(
+                            R.id.container_bottom_nav, MembersFragment(), false,
+                            addToBackStack = false, false
+                        )
+                        currentFragment = MEMBERS_TAB
+                    }
                     true
                 }
                 R.id.navigation_profile -> {
-                    addReplaceFragment(
-                        R.id.container_bottom_nav, ProfileFragment(), false,
-                        addToBackStack = true, false
-                    )
+                    if (currentFragment != PROFILE_TAB){
+                        addReplaceFragment(
+                            R.id.container_bottom_nav, ProfileFragment(), false,
+                            addToBackStack = false, false
+                        )
+                        currentFragment = PROFILE_TAB
+                    }
                     true
                 }
                 else -> {
@@ -52,7 +62,16 @@ class MainActivity : BaseActivity() {
     private fun loadHomeFragment() {
         addReplaceFragment(
             R.id.container_bottom_nav, HomeFragment(), false,
-            addToBackStack = true, false
+            addToBackStack = false, false
         )
+        currentFragment = HOME_TAB
+    }
+
+    override fun onBackPressed() {
+        if (currentFragment != HOME_TAB){
+            loadHomeFragment()
+        }else{
+            super.onBackPressed()
+        }
     }
 }

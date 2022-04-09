@@ -138,9 +138,6 @@ class HomeFragment : Fragment() {
                 )
                 btnAddNewSaving.isEnabled = true
             }
-            imgUser.setOnClickListener {
-                redirectToProfile()
-            }
         }
     }
 
