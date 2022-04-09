@@ -51,7 +51,7 @@
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:textColor="@color/color_main"
                     android:textSize="@dimen/_14sdp"
-                    app:layout_constraintEnd_toStartOf="@+id/appCompatTextView2"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_user_total_saving"
                     app:layout_constraintStart_toEndOf="@id/img_user"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Sajid ali Suthar" />
@@ -71,13 +71,14 @@
                     tools:text="sutharsajidali@gmail.com" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/appCompatTextView2"
+                    android:id="@+id/txt_user_total_saving"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_mono_bold"
                     android:text="@{data.totalSavings}"
                     android:textColor="@color/color_main"
                     android:textSize="@dimen/_14sdp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/txt_name"
                     tools:text="\u20b91000" />

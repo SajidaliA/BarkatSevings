@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.barkat.barkatsevings.data.User
+import com.barkat.barkatsevings.utils.ADMIN_EMAIL
+import com.barkat.barkatsevings.utils.hide
+import com.barkat.barkatsevings.utils.show
 import com.example.barkatsevings.R
 import com.example.barkatsevings.databinding.ItemUserBinding
 
@@ -31,6 +34,11 @@ class UserAdapter : ListAdapter<User, UserAdapter.TestViewHolder>(UserDiffUtil()
         val user = getItem(position)
         if (user.totalSavings?.contains(holder.binding.root.context.getString(R.string.rupee_symbol)) == false){
             user.totalSavings = holder.binding.root.context.getString(R.string.savings, user.totalSavings)
+        }
+        if (user.email == ADMIN_EMAIL){
+            holder.binding.txtUserTotalSaving.show()
+        }else{
+            holder.binding.txtUserTotalSaving.hide()
         }
         holder.binding.data = user
     }
