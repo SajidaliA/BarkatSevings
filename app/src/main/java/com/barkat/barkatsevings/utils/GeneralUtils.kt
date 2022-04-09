@@ -2,6 +2,7 @@ package com.barkat.barkatsevings.utils
 
 import android.app.Activity
 import android.content.Context
+import android.net.ConnectivityManager
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.IdRes
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 import com.example.barkatsevings.R
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * Created by Sajid Ali Suthar
@@ -18,10 +20,13 @@ fun FragmentActivity.addReplaceFragment(
     @IdRes container: Int,
     fragment: Fragment,
     addFragment: Boolean,
-    addToBackStack: Boolean
+    addToBackStack: Boolean,
+    animate: Boolean
 ) {
     val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-    transaction.setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out)
+    if (animate){
+        transaction.setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out)
+    }
     if (addFragment) {
         transaction.add(container, fragment, fragment.javaClass.simpleName)
     } else {
@@ -50,4 +55,15 @@ fun Activity.showKeyboard() {
     val view = currentFocus
     val methodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     methodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+}
+
+fun checkConnection(context: Context): Boolean {
+    val manager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val networkInfo = manager.activeNetworkInfo
+    return networkInfo != null && networkInfo.isConnectedOrConnecting
+}
+
+fun showSnackBar(view: View, message: String) {
+    Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
 }

@@ -1,36 +1,31 @@
-package com.barkat.barkatsevings.view
+package com.barkat.barkatsevings.view.fragment
 
 import android.app.AlertDialog
-import android.content.Context
-import android.content.IntentFilter
-import android.net.ConnectivityManager
 import android.os.Bundle
-import androidx.activity.viewModels
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.barkat.barkatsevings.data.Saving
 import com.barkat.barkatsevings.data.User
 import com.barkat.barkatsevings.utils.*
 import com.barkat.barkatsevings.view.adapter.SavingsAdapter
-import com.barkat.barkatsevings.view.fragment.AddNewSavingFragment
-import com.barkat.barkatsevings.view.fragment.ProfileFragment
-import com.barkat.barkatsevings.viewmodel.MainViewModel
+import com.barkat.barkatsevings.viewmodel.HomeViewModel
 import com.bumptech.glide.Glide
 import com.example.barkatsevings.R
-import com.example.barkatsevings.databinding.ActivityMainBinding
-import com.google.android.material.snackbar.Snackbar
+import com.example.barkatsevings.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
-class MainActivity : BaseActivity(), ConnectionReceiver.ReceiverListener {
+class HomeFragment : Fragment() {
+
     @Inject
     lateinit var mPreferenceProvider: PreferenceProvider
-    private lateinit var mBinding: ActivityMainBinding
-    private val viewModel: MainViewModel by viewModels()
+    private lateinit var mBinding: FragmentHomeBinding
+    private val viewModel: HomeViewModel by activityViewModels()
     private val savingList: ArrayList<Saving> = ArrayList()
     private val allSavingList: ArrayList<Saving> = ArrayList()
 
@@ -38,12 +33,29 @@ class MainActivity : BaseActivity(), ConnectionReceiver.ReceiverListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(mBinding.root)
-        checkConnection()
+        arguments?.let {
+
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        mBinding = FragmentHomeBinding.inflate(inflater, container, false)
+        return mBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        checkInternet()
         checkUserDetails()
         setupObserver()
         setClickListeners()
+    }
+
+    private fun checkInternet() {
+        if (context?.let { checkConnection(it) } == false) showSnackBar(mBinding.root, "No internet connection")
     }
 
     private fun checkUserDetails() {
@@ -51,8 +63,10 @@ class MainActivity : BaseActivity(), ConnectionReceiver.ReceiverListener {
             if (displayName.isNullOrEmpty() && phoneNumber.isNullOrEmpty()) {
                 showAlert(getString(R.string.please_add_your_name_and_mobile_number_form_profile))
             }
-            Glide.with(this@MainActivity).load(photoUrl).circleCrop()
-                .placeholder(R.drawable.ic_user_placeholder).into(mBinding.imgUser)
+            context?.let {
+                Glide.with(it).load(photoUrl).circleCrop()
+                    .placeholder(R.drawable.ic_user_placeholder).into(mBinding.imgUser)
+            }
             if (email.toString() == ADMIN_EMAIL) {
                 mBinding.btnAddNewSaving.show()
                 mBinding.lineBottom.show()
@@ -75,30 +89,8 @@ class MainActivity : BaseActivity(), ConnectionReceiver.ReceiverListener {
         }
     }
 
-    private fun showAlert(message: String) {
-        AlertDialog.Builder(this).apply {
-            setTitle(getString(R.string.complete_your_details))
-            setMessage(message)
-            setPositiveButton(
-                getString(R.string.add)
-            ) { dialog, _ ->
-                dialog.dismiss()
-                redirectToProfile()
-            }
-                .setCancelable(false)
-                .show()
-        }
-    }
-
-    private fun redirectToProfile() {
-        addReplaceFragment(
-            R.id.container_main, ProfileFragment(), true,
-            addToBackStack = true
-        )
-    }
-
     private fun setupObserver() {
-        viewModel.getSavings().observe(this) {
+        viewModel.getSavings().observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty() && it[0].amount != null) {
                 savingList.clear()
                 savingList.addAll(it)
@@ -116,7 +108,7 @@ class MainActivity : BaseActivity(), ConnectionReceiver.ReceiverListener {
             mBinding.progressBar.hide()
         }
 
-        viewModel.getAllSavings().observe(this) {
+        viewModel.getAllSavings().observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
                 allSavingList.clear()
                 allSavingList.addAll(it)
@@ -131,9 +123,9 @@ class MainActivity : BaseActivity(), ConnectionReceiver.ReceiverListener {
         mBinding.apply {
             btnAddNewSaving.setOnClickListener {
                 btnAddNewSaving.isEnabled = false
-                addReplaceFragment(
+                activity?.addReplaceFragment(
                     R.id.container_main, AddNewSavingFragment(), true,
-                    addToBackStack = true
+                    addToBackStack = true, true
                 )
                 btnAddNewSaving.isEnabled = true
             }
@@ -144,7 +136,7 @@ class MainActivity : BaseActivity(), ConnectionReceiver.ReceiverListener {
     }
 
     private fun setView() {
-        mBinding.rvSavings.layoutManager = LinearLayoutManager(this)
+        mBinding.rvSavings.layoutManager = LinearLayoutManager(context)
         mBinding.rvSavings.adapter = savingsAdapter
         updateData()
     }
@@ -153,29 +145,30 @@ class MainActivity : BaseActivity(), ConnectionReceiver.ReceiverListener {
         savingsAdapter.submitList(savingList)
     }
 
-    override fun onNetworkChange(isConnected: Boolean) {
-        if (!isConnected) showSnackBar()
-    }
-
-
-    private fun checkConnection() {
-        val intentFilter = IntentFilter()
-        intentFilter.addAction("android.new.conn.CONNECTIVITY_CHANGE")
-        registerReceiver(ConnectionReceiver(), intentFilter)
-        ConnectionReceiver.Listener = this
-        val manager =
-            applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo = manager.activeNetworkInfo
-        val isConnected = networkInfo != null && networkInfo.isConnectedOrConnecting
-        if (!isConnected) showSnackBar()
-    }
-
-    private fun showSnackBar() {
-        Snackbar.make(mBinding.root, "Not Connected to Internet", Snackbar.LENGTH_LONG).show()
-    }
-
     override fun onResume() {
         super.onResume()
-        checkConnection()
+        checkInternet()
+    }
+
+    private fun showAlert(message: String) {
+        AlertDialog.Builder(context).apply {
+            setTitle(getString(R.string.complete_your_details))
+            setMessage(message)
+            setPositiveButton(
+                getString(R.string.add)
+            ) { dialog, _ ->
+                dialog.dismiss()
+                redirectToProfile()
+            }
+                .setCancelable(false)
+                .show()
+        }
+    }
+
+    private fun redirectToProfile() {
+        activity?.addReplaceFragment(
+            R.id.container_main, ProfileFragment(), true,
+            addToBackStack = true, true
+        )
     }
 }

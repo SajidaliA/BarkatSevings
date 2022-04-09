@@ -1,4 +1,4 @@
-package com.barkat.barkatsevings.view
+package com.barkat.barkatsevings.view.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

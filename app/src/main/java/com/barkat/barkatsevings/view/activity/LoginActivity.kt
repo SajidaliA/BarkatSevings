@@ -1,17 +1,12 @@
-package com.barkat.barkatsevings.view
+package com.barkat.barkatsevings.view.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.barkat.barkatsevings.helper.FirebaseHelper
-import com.barkat.barkatsevings.utils.PreferenceProvider
-import com.barkat.barkatsevings.utils.USER_ID
-import com.barkat.barkatsevings.utils.hide
-import com.barkat.barkatsevings.utils.show
+import com.barkat.barkatsevings.utils.*
 import com.example.barkatsevings.databinding.ActivityLoginBinding
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -27,6 +22,7 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+        if (!checkConnection(this)) showSnackBar(mBinding.root, "No internet connection")
         firebaseHelper = FirebaseHelper(mPreferenceProvider)
         firebaseHelper.checkUserLoggedIn()?.apply {
             mPreferenceProvider.setValue(USER_ID,
@@ -38,16 +34,24 @@ class LoginActivity : BaseActivity() {
         setClickListeners()
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (!checkConnection(this)) showSnackBar(mBinding.root, "No internet connection")
+    }
+
     private fun setClickListeners() {
         mBinding.btnLogin.setOnClickListener {
             val email = mBinding.edtEmail.text.toString()
             val password = mBinding.edtPassword.text.toString()
             when {
+                !checkConnection(this) -> {
+                    showSnackBar(mBinding.root, "No internet connection")
+                }
                 email.isEmpty() -> {
-                    Snackbar.make(mBinding.root, "Please enter email", Snackbar.LENGTH_SHORT).show()
+                    showSnackBar(mBinding.root, "Please enter email")
                 }
                 password.isEmpty() -> {
-                    Snackbar.make(mBinding.root, "Please enter password", Snackbar.LENGTH_SHORT).show()
+                    showSnackBar(mBinding.root, "Please enter password")
                 }
                 else -> {
                     mBinding.btnLogin.hide()

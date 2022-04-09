@@ -23,4 +23,8 @@
     <string name="_2023">2023</string>
     <string name="_2022">2022</string>
     <string name="logout">Logout</string>
+    <string name="title_activity_main_bottom_nav">MainBottomNavActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_members">Members</string>
+    <string name="title_profile">Profile</string>
 </resources>

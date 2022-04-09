@@ -8,7 +8,7 @@ data class User(
     val email: String? = null,
     val mobileNumber: String? = null,
     val name: String? = null,
-    val totalSavings: String? = null,
+    var totalSavings: String? = null,
     val joinDate: String? = null,
     var profileImage: String? = null
 ){

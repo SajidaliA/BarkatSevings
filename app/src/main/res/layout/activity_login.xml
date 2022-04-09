@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/_16sdp"
-        tools:context="com.barkat.barkatsevings.view.LoginActivity">
+        tools:context="com.barkat.barkatsevings.view.activity.LoginActivity">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_login"

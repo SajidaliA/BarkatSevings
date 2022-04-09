@@ -2,17 +2,16 @@ package com.barkat.barkatsevings.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
 import com.barkat.barkatsevings.data.Saving
 import com.barkat.barkatsevings.data.User
-import com.barkat.barkatsevings.repository.MainRepository
+import com.barkat.barkatsevings.repository.HomeRepository
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
-    private val mainRepository: MainRepository,
+class HomeViewModel @Inject constructor(
+    private val mainRepository: HomeRepository,
     application: Application
 ) :
     AndroidViewModel(application) {

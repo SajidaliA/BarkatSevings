@@ -9,11 +9,10 @@ import android.view.ViewGroup
 import com.barkat.barkatsevings.helper.FirebaseHelper
 import com.barkat.barkatsevings.utils.PreferenceProvider
 import com.barkat.barkatsevings.utils.hideKeyboard
-import com.barkat.barkatsevings.view.LoginActivity
+import com.barkat.barkatsevings.view.activity.LoginActivity
 import com.bumptech.glide.Glide
 import com.example.barkatsevings.R
 import com.example.barkatsevings.databinding.FragmentProfieBinding
-import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

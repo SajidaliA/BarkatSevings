@@ -1,6 +1,9 @@
 package com.barkat.barkatsevings.utils
 
 import android.view.View
+import androidx.appcompat.widget.AppCompatImageView
+import com.bumptech.glide.Glide
+import com.example.barkatsevings.R
 
 /**
  * Created by Sajid Ali Suthar
@@ -24,3 +27,18 @@ fun String?.isEmailValid(): Boolean {
 
 fun String?.isPasswordValid(): Boolean =
     !this.isNullOrEmpty() && this.length >= 6
+
+fun AppCompatImageView.setImage(url: String, isRound: Boolean = false) {
+    if (isRound) {
+        Glide.with(this.context)
+            .load(url)
+            .circleCrop()
+            .placeholder(R.drawable.ic_user_placeholder)
+            .into(this)
+    } else {
+        Glide.with(this.context)
+            .load(url)
+            .placeholder(R.drawable.ic_user_placeholder)
+            .into(this)
+    }
+}

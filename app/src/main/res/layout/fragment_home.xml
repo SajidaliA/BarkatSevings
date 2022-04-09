@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_main"
-    tools:context="com.barkat.barkatsevings.view.MainActivity">
+    tools:context="com.barkat.barkatsevings.view.activity.MainActivity">
 
     <FrameLayout
         android:id="@+id/container_main"

@@ -1,7 +1,7 @@
 package com.barkat.barkatsevings.di
 
 import com.barkat.barkatsevings.helper.FirebaseHelper
-import com.barkat.barkatsevings.repository.MainRepository
+import com.barkat.barkatsevings.repository.HomeRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,5 +19,5 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun provideMainRepository(firebaseHelper: FirebaseHelper) =
-        MainRepository(firebaseHelper)
+        HomeRepository(firebaseHelper)
 }
