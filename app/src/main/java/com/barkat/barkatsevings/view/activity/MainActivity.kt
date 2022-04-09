@@ -65,6 +65,7 @@ class MainActivity : BaseActivity() {
             addToBackStack = false, false
         )
         currentFragment = HOME_TAB
+        mBinding.navView.menu.findItem(R.id.navigation_home).isChecked = true
     }
 
     override fun onBackPressed() {
